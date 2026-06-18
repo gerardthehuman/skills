@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Review"
+  short_description: "Review pull requests and diffs"
+  default_prompt: "Use $pr-review to review this pull request or branch diff for meaningful issues."

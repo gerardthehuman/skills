@@ -25,7 +25,9 @@ bun x skills add .
 ## Available Skills
 
 <!-- SKILLS:START -->
-_No skills found. Add a skill to the `skills/` directory to get started._
+### [pr-review](skills/pr-review/SKILL.md)
+
+Review pull requests, branches, commits, or working-tree diffs through parallel lenses: correctness-and-security, code-quality, tests, comments, errors, and types. Use whenever the user asks for a PR review, code review, merge-readiness check, aggressive/deep/thermos review, test-gap analysis, silent-failure review, comment or doc review, type-design feedback, or code-quality feedback on changed code.
 <!-- SKILLS:END -->
 
 ## Contributing
