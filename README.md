@@ -29,6 +29,10 @@ bun x skills add .
 
 Apply changes from the current conversation, an implementation plan, review feedback, issue reports, or PR follow-up work, then integrate them into the right commits. Use when the user asks to apply requested changes, implement an agreed plan, fix issues found in review, address issue feedback, or fold follow-up fixes into a branch or PR.
 
+### [pr-feedback-loop](skills/pr-feedback-loop/SKILL.md)
+
+Drive a GitHub pull request through an AI review feedback loop: resolve the PR, fix branch-owned check failures and unresolved review threads, request or re-request Copilot or Codex review, wait with the bundled polling script, and repeat until no actionable feedback remains. Use when the user asks to run an AI PR feedback loop, get Copilot/Codex to review a PR, clear unresolved PR comments, fix failing PR checks, or repeatedly apply reviewer feedback before merge.
+
 ### [pr-review](skills/pr-review/SKILL.md)
 
 Review pull requests, branches, commits, or working-tree diffs through parallel lenses: correctness-and-security, code-quality, tests, comments, errors, and types. Use whenever the user asks for a PR review, code review, merge-readiness check, aggressive/deep/thermos review, test-gap analysis, silent-failure review, comment or doc review, type-design feedback, or code-quality feedback on changed code.
