@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Suggest Changes"
+  short_description: "Publish GitHub PR review comments"
+  default_prompt: "Use $pr-suggest-changes to publish these finalized findings as GitHub pull request review comments."
