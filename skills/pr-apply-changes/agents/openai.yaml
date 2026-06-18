@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Apply Changes"
+  short_description: "Apply and integrate PR feedback fixes"
+  default_prompt: "Use $pr-apply-changes to apply this PR feedback and integrate the fixes into the right commits."

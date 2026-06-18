@@ -25,6 +25,10 @@ bun x skills add .
 ## Available Skills
 
 <!-- SKILLS:START -->
+### [pr-apply-changes](skills/pr-apply-changes/SKILL.md)
+
+Apply changes from the current conversation, an implementation plan, review feedback, issue reports, or PR follow-up work, then integrate them into the right commits. Use when the user asks to apply requested changes, implement an agreed plan, fix issues found in review, address issue feedback, or fold follow-up fixes into a branch or PR.
+
 ### [pr-review](skills/pr-review/SKILL.md)
 
 Review pull requests, branches, commits, or working-tree diffs through parallel lenses: correctness-and-security, code-quality, tests, comments, errors, and types. Use whenever the user asks for a PR review, code review, merge-readiness check, aggressive/deep/thermos review, test-gap analysis, silent-failure review, comment or doc review, type-design feedback, or code-quality feedback on changed code.
