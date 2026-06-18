@@ -1,0 +1,15 @@
+{
+  "name": "@gerardthehuman/skills",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "postinstall": "lefthook install",
+    "readme": "bun scripts/readme.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "gray-matter": "^4.0.3",
+    "lefthook": "^2.1.9",
+    "typescript": "^5.9.3"
+  }
+}

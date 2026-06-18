@@ -1,0 +1,6 @@
+pre-commit:
+  jobs:
+    - name: update readme
+      glob: "skills/*/SKILL.md"
+      run: bun run readme && git add README.md
+      
