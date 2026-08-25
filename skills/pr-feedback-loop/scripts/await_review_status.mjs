@@ -70,7 +70,6 @@ const ALIASES = {
     "github-copilot",
     "github-copilot[bot]",
   ],
-  codex: ["codex", "codex[bot]", "openai-codex", "openai-codex[bot]"],
 };
 
 const EXIT_CODES = {
@@ -136,6 +135,10 @@ function parseArgs(argv) {
     }
   }
 
+  if (options.reviewers.length === 0) {
+    options.reviewers = ["copilot"];
+  }
+
   return options;
 }
 
@@ -149,12 +152,12 @@ function parseInteger(value, flag) {
 function printHelp() {
   console.log(`Usage: await_review_status.mjs [options]
 
-Wait for AI PR reviewer completion and unresolved review threads.
+Wait for Copilot PR review completion and unresolved review threads.
 
 Options:
   --repo OWNER/REPO          Repository. Defaults to the current checkout.
   --pr NUMBER                Pull request number. Defaults to linked checkout PR.
-  --reviewer LOGIN           Reviewer login or alias to watch. Repeatable.
+  --reviewer LOGIN           Reviewer login or alias to watch. Repeatable. Defaults to copilot.
   --timeout-seconds NUMBER   Maximum seconds to wait. Use 0 for one-shot status.
   --interval-seconds NUMBER  Seconds between polls.
   --target-head SHA          Expected PR head SHA. Defaults to the head at start.

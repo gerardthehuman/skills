@@ -31,7 +31,7 @@ Apply changes from the current conversation, an implementation plan, review feed
 
 ### [pr-feedback-loop](skills/pr-feedback-loop/SKILL.md)
 
-Drive a GitHub pull request through an AI review feedback loop: resolve the PR, fix branch-owned check failures and unresolved review threads, request or re-request Copilot or Codex review, wait with the bundled polling script, and repeat until no actionable feedback remains. Use when the user asks to run an AI PR feedback loop, get Copilot/Codex to review a PR, clear unresolved PR comments, fix failing PR checks, or repeatedly apply reviewer feedback before merge.
+Copilot review loop: run CI, clear review feedback, request a stale or missing review, and repeat after head changes. Use when CI fails, Copilot comments need fixing, or a pull request needs a fresh Copilot review.
 
 ### [pr-review](skills/pr-review/SKILL.md)
 

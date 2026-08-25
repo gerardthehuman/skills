@@ -1,99 +1,114 @@
 ---
 name: pr-feedback-loop
-description: "Drive a GitHub pull request through an AI review feedback loop: resolve the PR, fix branch-owned check failures and unresolved review threads, request or re-request Copilot or Codex review, wait with the bundled polling script, and repeat until no actionable feedback remains. Use when the user asks to run an AI PR feedback loop, get Copilot/Codex to review a PR, clear unresolved PR comments, fix failing PR checks, or repeatedly apply reviewer feedback before merge."
+description:
+  "Copilot review loop: run CI, clear review feedback, request a stale or
+  missing review, and repeat after head changes. Use when CI fails, Copilot
+  comments need fixing, or a pull request needs a fresh Copilot review."
 ---
 
 # PR Feedback Loop
 
-Run one PR through a bounded cycle: check status, fix branch-owned feedback, request AI review, wait, repeat.
+Run one pull request through a bounded Copilot cycle. Keep `OWNER/REPO`,
+`PR_NUMBER`, and the current head SHA in view.
 
-## Start
+## 1. Establish the PR state
 
-- Use `gh`; if `gh auth status` fails, stop.
-- Resolve `OWNER/REPO` and `PR_NUMBER` from the user input, PR URL, or `gh pr view`.
-- Exit if the PR is closed or merged. If it is draft, run `gh pr ready <pr>`.
-- Inspect `git status --short` before editing and preserve unrelated work.
-- Never poll manually through repeated model inspection. Use `scripts/await_review_status.mjs`.
+Resolve `OWNER/REPO` and `PR_NUMBER`, verify GitHub authentication, and inspect
+the working tree. Continue only for an open PR and keep unrelated changes
+separate. Make a draft PR ready before proceeding.
 
-## Apply Fixes
+**Complete when:** the PR is open and ready for review, the repository and PR
+number are known, and the working-tree state is recorded.
 
-Prefer `$pr-apply-changes` for every accepted fix. Pass the check/thread context, the fix summary, and validation result, then push.
+## 2. `ci_pending` — wait for checks
 
-If `$pr-apply-changes` is unavailable: make the smallest complete fix, run the closest useful validation, keep unrelated changes out, fold the fix into the branch commit that introduced the issue when the base and rewrite range are clear, otherwise make a new commit. Push normally; after a rewrite use `git push --force-with-lease`.
-
-## Check And Fix
-
-Before requesting review, and after every push, inspect checks:
+Run:
 
 ```bash
-gh pr checks PR_NUMBER --repo OWNER/REPO --watch=false
+gh pr checks PR_NUMBER --repo OWNER/REPO --watch
 ```
 
-For failing or cancelled checks, inspect the job/run logs, fix only failures owned by the branch, validate, apply the fix, push, and wait for rerun checks. Report external, flaky, quota, permission, or infrastructure failures instead of hiding them.
+Inspect failed or cancelled checks and their logs. Fix branch-owned failures,
+validate, push, and return to this step. Report failures owned by external
+services, permissions, quotas, or infrastructure.
 
-Read current review state before requesting review:
+**Complete when:** every check is green, or each non-branch-owned failure is
+recorded and reported.
+
+## 3. `review_pending` — inspect current feedback
+
+Check the current Copilot status once:
 
 ```bash
-node <skill-dir>/scripts/await_review_status.mjs \
-  --repo OWNER/REPO \
-  --pr PR_NUMBER \
-  --timeout-seconds 0
+node <skill-dir>/scripts/await_review_status.mjs --repo OWNER/REPO --pr PR_NUMBER --timeout-seconds 0
 ```
 
-For unresolved threads: verify each comment against the current branch, including outdated threads. If the issue still applies, group related comments, make the smallest valid fix, validate, apply, push, then resolve fixed threads:
+Read the latest Copilot review, all unresolved threads, and the review body’s
+`<details><summary>Suppressed comments</summary>` section. Compare findings with
+the current head SHA. Mark `review_complete` when the review matches the current
+head and has no actionable findings or unresolved threads. Mark
+`unresolved_comments` for every thread or suppressed finding that still needs a
+response or fix.
+
+**Complete when:** every current-head Copilot finding is classified as
+`review_complete` or listed as `unresolved_comments`, including suppressed
+comments.
+
+## 4. `unresolved_comments` — fix and resolve existing threads
+
+For each `unresolved_comments` item, verify it against the current branch. Make
+the smallest complete fix for a valid finding, validate it, and fold it into the
+introducing branch commit with `/pr-apply-changes` or a `--fixup` commit. Push
+rewritten history with `git push --force-with-lease`.
+
+Treat files under `docs/worklog/*` as dated historical records. For a comment
+about an outdated command or inventory, reply with evidence pointing to the
+current workflow or documentation source of truth, then resolve the thread.
+
+Resolve every fixed or answered thread beside the feedback handling:
 
 ```bash
-gh api graphql \
-  -f query='mutation($id:ID!){resolveReviewThread(input:{threadId:$id}){thread{id isResolved}}}' \
-  -f id='THREAD_ID'
+gh api graphql -f query='mutation($id:ID!){resolveReviewThread(input:{threadId:$id}){thread{id isResolved}}}' -f id='THREAD_ID'
 ```
 
-For outdated, invalid, or obsolete comments that no longer apply, reply with the evidence first, then resolve. Only resolve after a validated fix has landed or the no-change decision is explicit.
+**Complete when:** every existing finding has been fixed or answered, every
+corresponding thread is resolved, and any resulting push has completed.
 
-## Request And Wait
+## 5. `review_complete` or stale — request Copilot when needed
 
-Check reviewer freshness with aliases:
+When the current review is not `review_complete`, request Copilot:
 
 ```bash
-node <skill-dir>/scripts/await_review_status.mjs \
-  --repo OWNER/REPO \
-  --pr PR_NUMBER \
-  --reviewer copilot \
-  --reviewer codex \
-  --timeout-seconds 0
+gh pr edit PR_NUMBER --repo OWNER/REPO --add-reviewer @copilot
 ```
 
-If the latest matching review is fresh for the current head, do not request another review. If review is missing, stale, or no current-head request is pending, request the first available reviewer in order:
+Skip the request only when the one-shot check confirmed `review_complete` for
+the current head.
 
-- Copilot:
+**Complete when:** Copilot accepted the request, or the current-head review is
+already `review_complete`.
 
-  ```bash
-  gh pr edit PR_NUMBER --repo OWNER/REPO --add-reviewer @copilot
-  ```
+## 6. `review_pending` — wait for Copilot
 
-- Codex:
-
-  ```bash
-  gh pr comment PR_NUMBER --repo OWNER/REPO --body '@codex review'
-  ```
-
-Treat request failures as that reviewer being unavailable and try the next reviewer. Wait using the successful reviewer alias (`copilot` or `codex`):
+Wait for the requested review:
 
 ```bash
-node <skill-dir>/scripts/await_review_status.mjs \
-  --repo OWNER/REPO \
-  --pr PR_NUMBER \
-  --reviewer REVIEWER_ALIAS \
-  --timeout-seconds 1800 \
-  --interval-seconds 30
+node <skill-dir>/scripts/await_review_status.mjs --repo OWNER/REPO --pr PR_NUMBER --timeout-seconds 1800 --interval-seconds 30
 ```
 
-Status handling:
+**Complete when:** the poller returns a review result for the current head, or
+the state is `timeout` and the timeout is reported.
 
-- `unresolved_comments`: fix or reply, push, resolve, then continue.
-- `review_complete`: recheck threads and checks; finish when no actionable feedback remains.
-- `pending_review`: request or wait depending on whether a current-head request exists.
-- `head_changed`: restart from check state.
-- `timeout`: stop and report that the reviewer did not finish within the timeout.
+## 7. `head_changed` — repeat the loop
 
-Stop if the same thread or check remains after an attempted fix, validation cannot pass, no AI reviewer is requestable, or the loop is no longer making progress.
+After every push or a poller result showing `head_changed`, return to step 2.
+Re-run CI, inspect the new Copilot review and suppressed comments, and handle
+all new `unresolved_comments` before requesting another review.
+
+Finish when CI is green or an external failure is reported, the current-head
+review is `review_complete`, and no unresolved Copilot threads remain. Report
+`timeout`, an unchanged failing check or thread, failed validation, or an
+unavailable Copilot request with the relevant evidence.
+
+**Complete when:** the PR satisfies all finish conditions, or a named blocking
+state and its evidence have been reported.
