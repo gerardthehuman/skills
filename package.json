@@ -9,8 +9,11 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "gray-matter": "^4.0.3",
+    "@types/mdast": "^4.0.4",
+    "gray-matter-es": "^0.2.1",
     "lefthook": "^2.1.9",
+    "mdast-util-from-markdown": "^2.1.0",
+    "mdast-util-to-string": "^4.0.0",
     "oxfmt": "^0.71.0",
     "typescript": "^5.9.3"
   }
