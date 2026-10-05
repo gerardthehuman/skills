@@ -1,7 +1,6 @@
 ---
 name: pr-feedback-loop
-description:
-  "Copilot review loop: run CI, clear review feedback, request a stale or
+description: "Copilot review loop: run CI, clear review feedback, request a stale or
   missing review, and repeat after head changes. Use when CI fails, Copilot
   comments need fixing, or a pull request needs a fresh Copilot review."
 ---

@@ -4,9 +4,11 @@ description: Publish finalized code review findings to an existing GitHub pull r
 ---
 
 # PR Suggest Changes
+
 Use this skill when the review findings are ready and the user wants them published to an existing pull request.
 
 ## Goal
+
 Publish a GitHub review that is easy for the author to act on:
 
 - start a review first

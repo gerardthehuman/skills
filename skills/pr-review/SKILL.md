@@ -12,14 +12,14 @@ This skill runs specialized subagents in parallel — one per review lens — th
 
 Select lenses from this table. The `Reference` file is the subagent's lens prompt.
 
-| Lens | Reference | What it checks | When to use |
-| --- | --- | --- | --- |
-| `correctness-and-security` | `references/correctness-and-security.md` | Bugs, breaking changes, security risks, devex regressions, feature-gate leaks, and branch-audit risks | Always for PR reviews unless the user names a narrower subset |
-| `code-quality` | `references/code-quality.md` | Structural simplification, maintainability, abstraction quality, file-size growth, spaghetti, and codebase-health risks | Always for PR reviews, and for code-quality or simplification feedback |
-| `tests` | `references/test-coverage.md` | Missing behavioral coverage, brittle tests, and important edge cases | Behavior changed, tests changed, or the user asks about coverage |
-| `comments` | `references/comment-quality.md` | Inaccurate, stale, redundant, or misleading comments and docs | Comments, docstrings, or docs changed, or the user asks about documentation |
-| `errors` | `references/error-handling.md` | Silent failures, weak error handling, and fallback behavior that hides problems | The diff touches catch blocks, retries, fallbacks, async IO, networking, persistence, or user-visible failures |
-| `types` | `references/type-design.md` | Weak invariants, leaky abstractions, and poor type design | Schemas, models, interfaces, DTOs, validation, or domain types changed |
+| Lens                       | Reference                                | What it checks                                                                                                          | When to use                                                                                                    |
+| -------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `correctness-and-security` | `references/correctness-and-security.md` | Bugs, breaking changes, security risks, devex regressions, feature-gate leaks, and branch-audit risks                   | Always for PR reviews unless the user names a narrower subset                                                  |
+| `code-quality`             | `references/code-quality.md`             | Structural simplification, maintainability, abstraction quality, file-size growth, spaghetti, and codebase-health risks | Always for PR reviews, and for code-quality or simplification feedback                                         |
+| `tests`                    | `references/test-coverage.md`            | Missing behavioral coverage, brittle tests, and important edge cases                                                    | Behavior changed, tests changed, or the user asks about coverage                                               |
+| `comments`                 | `references/comment-quality.md`          | Inaccurate, stale, redundant, or misleading comments and docs                                                           | Comments, docstrings, or docs changed, or the user asks about documentation                                    |
+| `errors`                   | `references/error-handling.md`           | Silent failures, weak error handling, and fallback behavior that hides problems                                         | The diff touches catch blocks, retries, fallbacks, async IO, networking, persistence, or user-visible failures |
+| `types`                    | `references/type-design.md`              | Weak invariants, leaky abstractions, and poor type design                                                               | Schemas, models, interfaces, DTOs, validation, or domain types changed                                         |
 
 ## Decide The Review Scope
 

@@ -1,6 +1,12 @@
 pre-commit:
   jobs:
+    - name: format
+      run: bun run format
+      glob:
+        - "**/*.md"
+        - "**/*.{js,json,mjs,ts}"
+        - "**/*.yml"
+      stage_fixed: true
     - name: update readme
       glob: "skills/*/SKILL.md"
       run: bun run readme && git add README.md
-      

@@ -451,7 +451,9 @@ async function main() {
       }
 
       if (Date.now() >= deadline) {
-        console.log(JSON.stringify(summarize("timeout", repo, pr, targetHead, pull, names), null, 2));
+        console.log(
+          JSON.stringify(summarize("timeout", repo, pr, targetHead, pull, names), null, 2),
+        );
         return EXIT_CODES.timeout;
       }
 
