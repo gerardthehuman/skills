@@ -7,11 +7,13 @@ A collection of agent skills for development workflows of Humanforce projects.
 Install any skill from this repository using the [skills.sh](https://skills.sh/):
 
 <!-- INSTALL:START -->
+
 ```bash
 npx skills add gerardthehuman/skills
 pnpm dlx skills add gerardthehuman/skills
 bun x skills add gerardthehuman/skills
 ```
+
 <!-- INSTALL:END -->
 
 Or, clone the repository and link a skill from your local copy:
@@ -25,6 +27,7 @@ bun x skills add .
 ## Available Skills
 
 <!-- SKILLS:START -->
+
 ### [Automation Team](skills/automation-team/README.md)
 
 Skills for the Humanforce Automation Team
@@ -36,6 +39,10 @@ Rules for the Automation Jira board (AUT). Use when filing, triaging, moving, la
 #### [Git Conventions](skills/automation-team/git-conventions/SKILL.md)
 
 Rules for Git operations: writing commits, naming branches, and writing pull requests.
+
+#### [Worklogs](skills/automation-team/worklogs/SKILL.md)
+
+Worklog conventions for the Automation Team. Use when starting significant work, recording decisions or findings, resuming work from a worklog, consolidating finished work, or preparing a pull request.
 
 ### [Engineering](skills/engineering/README.md)
 
