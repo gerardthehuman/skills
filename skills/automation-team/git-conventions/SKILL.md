@@ -102,3 +102,6 @@ Pull request titles must follow this format:
   applicable ticket conventions for the identifier's format and casing.
 
 Example: `<ticket>: Add minor feature`
+
+When drafting or updating a pull request description, read and follow
+[the template](references/pr-template.md).
