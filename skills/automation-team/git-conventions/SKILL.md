@@ -26,11 +26,11 @@ Prefer this small set of commit types:
 | `fix`      | Correcting faulty or unintended behaviour.                                         |
 | `refactor` | Restructuring without intentionally changing behaviour.                            |
 | `chore`    | Maintenance, tooling, setup, tests, dependencies, or other non-functional changes. |
-| `docs`     | Pure documentation or worklog changes.                                             |
+| `docs`     | Pure documentation changes.                                                        |
 
 When changes span multiple types, use the dominant type. Use `refactor` when
 more than 70% of the change is refactoring, and use `docs` for pure
-documentation or worklog changes.
+documentation changes.
 
 Scopes are encouraged when useful, but optional.
 
@@ -44,7 +44,7 @@ When choosing a scope:
   or `billing`.
 - In monorepos, a package or workspace name is often the best scope.
 - For infrastructure or tooling changes, use the relevant technology or
-  subsystem such as `docker`, `eslint`, `github`, or `build`.
+  subsystem such as `docker`, `eslint`, `ci`, or `build`.
 - Do not use filenames or overly specific implementation details as scopes.
 - Do not create separate scopes for operating systems when the change belongs to
   a broader domain.
@@ -69,7 +69,6 @@ When composing commits:
 - Focus body bullets on what changed and why, not implementation details.
 - Do not start bullets with hollow verbs such as `Updated`, `Modified`, or
   `Changed`.
-- Reference the related worklog in a `Worklog:` trailer or equivalent pointer.
 
 ## Branches
 
@@ -81,10 +80,12 @@ Branch names must follow this format:
 
 - `<type>` follows the commit-type rules and reflects the branch intent, not its
   individual commits.
+- `<ticket>` is the ticket identifier, following the applicable ticket conventions
+  for its format and casing.
 - Omit the optional `<ticket>_` prefix when no ticket exists.
 - Use lowercase kebab-case for `<name>`, with at most three words.
 
-Example: `feat/aut-394_add-singapore-country`
+Example: `feat/<ticket>_add-minor-feature`
 
 ## Pull Requests
 
@@ -97,6 +98,7 @@ Pull request titles must follow this format:
 - Omit the optional `<ticket>:` prefix when no ticket exists.
 - Make `<name>` an imperative description of the change, such as
   `Add Singapore country`.
-- Keep the ticket and name aligned with the branch name.
+- Keep the ticket identity and name aligned with the branch name, using the
+  applicable ticket conventions for the identifier's format and casing.
 
-Example: `AUT-394: Add Singapore country`
+Example: `<ticket>: Add minor feature`
