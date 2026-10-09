@@ -1,45 +1,161 @@
 # Pull Request Template & Guidelines
 
-## Body Guidelines
+Use this template for writing the PR body:
 
-- **Always Include**: `Summary` and `Testing`.
-- **Contextual Modules**: Add only sections that provide material context, decisions, risks, or review focus.
-- **No Boilerplate**: Omit non-applicable sections entirely. Never include a section heading just to write `None` or `Not Applicable`.
-- Use Title Case headings.
+```markdown
+## Summary
 
-## Template Modules
+<diagram, diff-sketch, or tree>
 
-Use each module name below as a level-two heading in the pull request body.
+## Evidence
 
-### Summary (Required)
+- **Before:** <screenshot/output/failing test run>
+  **After:** <screenshot/output/passing test run>
 
-State what changed, why it matters, and practical user or system impact.
+## Merge Danger
 
-> Adds bounded retry handling to the batch sync worker to prevent transient HTTP 429 errors from dropping jobs during peak sync windows.
+**Door:** <one-way or two-way>
 
-### Context & Problem (Optional)
+<optional: description>
 
-Explain the user problem, bug, or business motivation when not obvious from the diff. Link relevant tickets or worklogs.
+**Blast Radius:** <one-word description>
 
-### Key Decisions & Approach (Optional)
+<optional: potential ramifications of merge>
+```
 
-Highlight non-trivial architectural choices, trade-offs, or rejected alternatives. Omit routine implementation details.
+## Sections
 
-### Testing (Required)
+Skip all preambles and keep prose brief. Use the user or project's domain language.
 
-List automated tests, manual checks, and what each validated. Note known test gaps only when risk-relevant.
+### Summary
 
-> - Automated: `pnpm --filter api test batch-sync.test.ts` (14/14 pass, covering retry backoff and max attempts).
-> - Manual: Ran dry-run sync against staging; verified retry logs and backoff delay.
+Pick the smallest view that makes the key point clear.
 
-### Review Focus (Optional)
+- Show logic or an algorithm as pseudocode:
 
-Highlight highest-risk areas, complex logic, or non-obvious code paths in risk order. Cite specific files or lines.
+```text
+on(save)
+  if content is unchanged
+    return cached result
+  write new content
+  return fresh result
+```
 
-### Security & Operational Impact (Optional)
+- Show runtime control flow as a call tree:
 
-Use for auth, data boundaries, permissions, runtime capacity, metrics, alerts, or rollback procedures.
+```text
+submitForm
+  createSession
+    persistPrompt
+    launchAgent
+  navigateToSession
+```
 
-### AI Assistance (Optional)
+- Show UI structure as a component tree, including state and module boundaries that matter:
 
-Include when AI tools contributed substantive code or tests. State the tool used, what it generated, and how it was human-verified.
+```text
+<SessionPage> (apps/example/src/routes/session.tsx)
+  useSessionEvents()
+  <SessionToolbar>
+    <RunSkillButton> (packages/ui)
+```
+
+- Show file responsibility or a broad refactor as a shallow file tree:
+
+```text
+src/
+├── commands/       # parses user actions
+├── sessions/       # owns session state
+└── transport/      # sends API requests
+```
+
+- Show component interaction, control flow, or data flow with Mermaid:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI
+    participant Daemon
+    User->>UI: choose command
+    UI->>Daemon: send expanded prompt
+    Daemon-->>UI: stream result
+```
+
+- Use `diff` when the point is what changes and the surrounding shape already exists. Match the diff shape to the topic.
+
+For a component change:
+
+```diff
+ <SessionPage>
+   useSessionEvents()
+   <SessionToolbar>
++    <RunSkillButton />
+   <SessionTimeline>
++    <SkillResultCard />
+```
+
+For a file-layout change:
+
+```diff
+ src/
+ ├── commands/
++│   └── show-me.ts       # expands the slash command
+ ├── sessions/
+-└── transport.ts
++└── transport/
++    ├── client.ts
++    └── stream.ts
+```
+
+For a call-tree or call-stack change:
+
+```diff
+ submitForm
+   createSession
+     persistPrompt
++    expandSkillMention
+     launchAgent
+-  navigateToSession
++  navigateToSession
++    subscribeToEvents
+```
+
+For a state or control-flow change:
+
+```diff
+ on(save)
+-  write content
++  if content is unchanged
++    return cached result
++  write new content
++  invalidate cache
+```
+
+- Show the whole block when most of it is new, when omitted context would hide ownership or order, or when the user needs a copyable target shape:
+
+```ts
+function expandSkill(command: string): string {
+  const skillName = command.slice(1);
+  return `use the ${skillName} skill`;
+}
+```
+
+#### Guidance
+
+Place each visual next to the short text it supports. Keep only the calls, files, props, states, and boundaries needed to answer the user's current question or the options to resolve the current discussion point.
+
+You may use one of these, you may use several, it is unlikely you will use all of them. Use your judgement and don't overwhelm the user.
+
+### Evidence
+
+Concrete evidence that the change works. Show a before and after.
+
+Screenshots are S-tier - when the environment is set up for it and the change is visual.
+
+Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
+
+### Merge Danger
+
+Describe whether it's a one-way or two-way door. You can walk back through two-way doors, but not one-way doors. A PR that is cheap to roll back is lower risk. Changes that involve destructive actions or hard-to-reverse decisions are one-way doors.
+
+The blast radius is the potential impact or scope of the changes introduced by this PR. Consider all possibilities. Examples are layout shift, breakages for consumers, mobile responsiveness, etc.
