@@ -1,0 +1,4 @@
+interface:
+  display_name: "Automation Board"
+  short_description: "Manage AUT Jira tickets and status"
+  default_prompt: "Use $automation-board to file, triage, move, or close this AUT ticket following board rules."

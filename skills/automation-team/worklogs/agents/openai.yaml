@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worklogs"
+  short_description: "Record and resume work in worklogs"
+  default_prompt: "Use $worklogs to start, record, resume, or consolidate this work in the Automation Team worklog."
