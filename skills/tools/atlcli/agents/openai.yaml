@@ -1,0 +1,4 @@
+interface:
+  display_name: "atlcli"
+  short_description: "Install and use the atlcli Jira/Confluence CLI"
+  default_prompt: "Use $atlcli to install, authenticate, or run Jira and Confluence commands with the atlcli CLI."
