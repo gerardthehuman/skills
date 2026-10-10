@@ -7,13 +7,11 @@ A collection of agent skills for development workflows of Humanforce projects.
 Install any skill from this repository using the [skills.sh](https://skills.sh/):
 
 <!-- INSTALL:START -->
-
 ```bash
 npx skills add gerardthehuman/skills
 pnpm dlx skills add gerardthehuman/skills
 bun x skills add gerardthehuman/skills
 ```
-
 <!-- INSTALL:END -->
 
 Or, clone the repository and link a skill from your local copy:
@@ -27,7 +25,6 @@ bun x skills add .
 ## Available Skills
 
 <!-- SKILLS:START -->
-
 ### [Automation Team](skills/automation-team/README.md)
 
 Skills for the Humanforce Automation Team
@@ -52,9 +49,9 @@ Skills for common developer workflows.
 
 Apply changes from the current conversation, an implementation plan, review feedback, issue reports, or PR follow-up work, then integrate them into the right commits. Use when the user asks to apply requested changes, implement an agreed plan, fix issues found in review, address issue feedback, or fold follow-up fixes into a branch or PR.
 
-#### [PR Feedback Loop](skills/engineering/pr-feedback-loop/SKILL.md)
+#### [PR Feedback Loop](skills/engineering/pr-copilot-review/SKILL.md)
 
-Copilot review loop: run CI, clear review feedback, request a stale or missing review, and repeat after head changes. Use when CI fails, Copilot comments need fixing, or a pull request needs a fresh Copilot review.
+Drive one PR through CI and Copilot review until feedback is resolved.
 
 #### [PR Review](skills/engineering/pr-review/SKILL.md)
 

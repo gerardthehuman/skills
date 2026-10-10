@@ -1,0 +1,6 @@
+interface:
+  display_name: "PR Copilot Review"
+  short_description: "Run CI and Copilot review until feedback is resolved"
+  default_prompt: "Use $pr-copilot-review to drive this pull request through Copilot review and CI feedback until comments and fixable checks are resolved."
+policy:
+  allow_implicit_invocation: false

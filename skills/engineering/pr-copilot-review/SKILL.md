@@ -1,8 +1,7 @@
 ---
-name: pr-feedback-loop
-description: "Copilot review loop: run CI, clear review feedback, request a stale or
-  missing review, and repeat after head changes. Use when CI fails, Copilot
-  comments need fixing, or a pull request needs a fresh Copilot review."
+name: pr-copilot-review
+description: "Drive one PR through CI and Copilot review until feedback is resolved."
+disable-model-invocation: true
 ---
 
 # PR Feedback Loop
@@ -42,12 +41,16 @@ Check the current Copilot status once:
 node <skill-dir>/scripts/await_review_status.mjs --repo OWNER/REPO --pr PR_NUMBER --timeout-seconds 0
 ```
 
-Read the latest Copilot review, all unresolved threads, and the review body’s
-`<details><summary>Suppressed comments</summary>` section. Compare findings with
-the current head SHA. Mark `review_complete` when the review matches the current
-head and has no actionable findings or unresolved threads. Mark
-`unresolved_comments` for every thread or suppressed finding that still needs a
-response or fix.
+Read the latest Copilot review, all unresolved threads, the review body’s
+`<details><summary>Suppressed comments</summary>` section, and Copilot’s
+overview comment in the PR conversation (the poller does not fetch the overview).
+Copilot labels each comment `High`, `Medium`, or `Low`; use the label to
+prioritize, not to skip. Record the review effort level and approval assessment
+from the overview comment. An approval assessment is not merge readiness, and a
+later push dismisses a Copilot approval. Compare findings with the current head
+SHA. Mark `review_complete` when the review matches the current head and has no
+actionable findings or unresolved threads. Mark `unresolved_comments` for every
+thread or suppressed finding that still needs a response or fix.
 
 **Complete when:** every current-head Copilot finding is classified as
 `review_complete` or listed as `unresolved_comments`, including suppressed
@@ -64,6 +67,11 @@ Treat files under `docs/worklog/*` as dated historical records. For a comment
 about an outdated command or inventory, reply with evidence pointing to the
 current workflow or documentation source of truth, then resolve the thread.
 
+Copilot does not see replies and does not respond in threads; replies are for
+human reviewers. Copilot can repeat a finding you dismissed or resolved on
+re-review. Re-check the repeat against the current head, and if it is still
+invalid, resolve it with evidence rather than fixing it again.
+
 Resolve every fixed or answered thread beside the feedback handling:
 
 ```bash
@@ -75,14 +83,22 @@ corresponding thread is resolved, and any resulting push has completed.
 
 ## 5. `review_complete` or stale — request Copilot when needed
 
-When the current review is not `review_complete`, request Copilot:
+When the current review is not `review_complete`, request Copilot. Copilot needs
+a new request after each push unless automatic review of new pushes is enabled:
 
 ```bash
 gh pr edit PR_NUMBER --repo OWNER/REPO --add-reviewer @copilot
 ```
 
-Skip the request only when the one-shot check confirmed `review_complete` for
-the current head.
+The REST API also accepts the Copilot reviewer bot as a request target:
+
+```bash
+gh api -X POST repos/OWNER/REPO/pulls/PR_NUMBER/requested_reviewers -f 'reviewers[]=copilot-pull-request-reviewer[bot]'
+```
+
+Review effort (Lite or Balanced) is set in the PR's Reviewers menu, not by these
+commands. Skip the request only when the one-shot check confirmed
+`review_complete` for the current head.
 
 **Complete when:** Copilot accepted the request, or the current-head review is
 already `review_complete`.
@@ -101,8 +117,10 @@ the state is `timeout` and the timeout is reported.
 ## 7. `head_changed` — repeat the loop
 
 After every push or a poller result showing `head_changed`, return to step 2.
-Re-run CI, inspect the new Copilot review and suppressed comments, and handle
-all new `unresolved_comments` before requesting another review.
+Re-run CI, inspect the new Copilot review, overview comment, and suppressed
+comments, and handle all new `unresolved_comments` before requesting another
+review. Repeated findings follow the step 4 rule: report a repeat that stays
+invalid after re-checking rather than looping on it.
 
 Finish when CI is green or an external failure is reported, the current-head
 review is `review_complete`, and no unresolved Copilot threads remain. Report
