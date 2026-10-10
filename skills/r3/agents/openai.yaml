@@ -1,0 +1,4 @@
+interface:
+  display_name: "r3"
+  short_description: "Publish agent output to r3 for review"
+  default_prompt: "Use $r3 to publish this for review."
