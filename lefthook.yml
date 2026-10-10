@@ -8,5 +8,12 @@ pre-commit:
         - "**/*.yml"
       stage_fixed: true
     - name: update readme
-      glob: "skills/*/SKILL.md"
-      run: bun run readme && git add README.md
+      glob:
+        - "skills/*/SKILL.md"
+        - "skills/*/README.md"
+      run: bun run readme && git add README.md "skills/*/README.md"
+    - name: update skills.sh manifest
+      glob:
+        - "skills/**/SKILL.md"
+        - "skills/*/README.md"
+      run: bun run manifest && git add skills.sh.json
