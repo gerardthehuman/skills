@@ -1,5 +1,7 @@
 # Humanforce Skills
 
+[![skills.sh](https://skills.sh/b/gerardthehuman/skills)](https://skills.sh/gerardthehuman/skills)
+
 A collection of agent skills for development workflows of Humanforce projects.
 
 ## Installing a Skill
