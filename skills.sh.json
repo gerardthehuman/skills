@@ -11,6 +11,11 @@
       "title": "Engineering",
       "description": "Skills for common developer workflows.",
       "skills": ["pr-apply-changes", "pr-copilot-review", "pr-review", "pr-suggest-changes"]
+    },
+    {
+      "title": "Tools",
+      "description": "Skills for interacting with and using specific apps, command line tools, and other utilities.",
+      "skills": ["atlcli"]
     }
   ]
 }

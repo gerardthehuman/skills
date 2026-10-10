@@ -65,6 +65,14 @@ Review pull requests, branches, commits, or working-tree diffs through parallel 
 #### [PR Suggest Changes](skills/engineering/pr-suggest-changes/SKILL.md)
 
 Publish finalized code review findings to an existing GitHub pull request as a clean pull request review with inline comments and suggested changes. Use when the user asks to submit, publish, post, or suggest review changes on an existing PR after findings are already known or while converting review feedback into GitHub review comments.
+
+### [Tools](skills/tools/README.md)
+
+Skills for interacting with and using specific apps, command line tools, and other utilities.
+
+#### [atlcli](skills/tools/atlcli/SKILL.md)
+
+atlcli, the Jira/Confluence CLI. Use for atlcli install, login, auth profiles, Jira issues and worklogs, Confluence pages and markdown sync, or agent file access to Confluence.
 <!-- SKILLS:END -->
 
 ## Contributing
