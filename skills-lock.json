@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "asd-ste100": {
+      "source": "plannotator/write-better",
+      "sourceType": "github",
+      "skillPath": "skills/asd-ste100/SKILL.md",
+      "computedHash": "799b6a92703b4c6419bbfc95c43fc16cc15c8b58707d97cbd7ec26ed3eb425da"
+    },
+    "writing-for-agents": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/productivity/writing-for-agents/SKILL.md",
+      "computedHash": "95da47fc97af998e85b7d7e6d57b3ac76727c1e290cfe9ea09005aacb826959f"
+    }
+  }
+}
