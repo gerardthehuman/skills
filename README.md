@@ -9,11 +9,13 @@ A collection of agent skills for development workflows of Humanforce projects.
 Install any skill from this repository using the [skills.sh](https://skills.sh/):
 
 <!-- INSTALL:START -->
+
 ```bash
 npx skills add gerardthehuman/skills
 pnpm dlx skills add gerardthehuman/skills
 bun x skills add gerardthehuman/skills
 ```
+
 <!-- INSTALL:END -->
 
 Or, clone the repository and link a skill from your local copy:
@@ -27,6 +29,7 @@ bun x skills add .
 ## Available Skills
 
 <!-- SKILLS:START -->
+
 ### [Automation Team](skills/automation-team/README.md)
 
 Skills for the Humanforce Automation Team

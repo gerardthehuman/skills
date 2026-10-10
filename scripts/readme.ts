@@ -1,6 +1,7 @@
 import { dirname, relative } from "node:path";
 import packageJson from "../package.json" with { type: "json" };
 import { skills, type SkillGroup } from "./skills.ts";
+import { format } from "oxfmt";
 
 const repository = packageJson.name.replace(/^@/, "");
 
@@ -18,7 +19,7 @@ const updateSections = async (path: string, sections: Record<string, string>) =>
       : `${content.trimEnd()}\n\n${replacement}\n`;
   }
 
-  await Bun.write(path, content);
+  await Bun.write(path, (await format(path, content)).code);
 };
 
 const items = await skills();

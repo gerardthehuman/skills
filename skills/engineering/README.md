@@ -3,6 +3,7 @@
 Skills for common developer workflows.
 
 <!-- SKILLS:START -->
+
 ## [PR Apply Changes](pr-apply-changes/SKILL.md)
 
 Apply changes from the current conversation, an implementation plan, review feedback, issue reports, or PR follow-up work, then integrate them into the right commits. Use when the user asks to apply requested changes, implement an agreed plan, fix issues found in review, address issue feedback, or fold follow-up fixes into a branch or PR.

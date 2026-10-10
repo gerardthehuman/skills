@@ -3,6 +3,7 @@
 Skills for the Humanforce Automation Team
 
 <!-- SKILLS:START -->
+
 ## [Automation Board](automation-board/SKILL.md)
 
 Rules for the Automation Jira board (AUT). Use when filing, triaging, moving, labelling, or closing an AUT ticket, assigning its Impact, or aligning ticket status with deploys.
