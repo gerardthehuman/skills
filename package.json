@@ -5,7 +5,8 @@
   "scripts": {
     "format": "oxfmt",
     "postinstall": "lefthook install",
-    "readme": "bun scripts/readme.ts"
+    "readme": "bun scripts/readme.ts",
+    "manifest": "bun scripts/manifest.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
