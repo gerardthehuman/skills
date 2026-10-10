@@ -15,7 +15,7 @@
     {
       "title": "Tools",
       "description": "Skills for interacting with and using specific apps, command line tools, and other utilities.",
-      "skills": ["atlcli"]
+      "skills": ["atlcli", "r3"]
     }
   ]
 }
