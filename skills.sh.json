@@ -1,0 +1,25 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Automation Team",
+      "description": "Skills for the Humanforce Automation Team",
+      "skills": [
+        "automation-board",
+        "git-conventions",
+        "worklogs"
+      ]
+    },
+    {
+      "title": "Engineering",
+      "description": "Skills for common developer workflows.",
+      "skills": [
+        "pr-apply-changes",
+        "pr-copilot-review",
+        "pr-review",
+        "pr-suggest-changes"
+      ]
+    }
+  ]
+}
