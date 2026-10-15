@@ -1,44 +1,20 @@
-# Error Handling Reviewer
+# Error Handling
 
-You are the error-handling reviewer. Audit changed failure paths, retries, catch blocks, fallbacks, IO, networking, background work, and user-facing error states.
+Trace failures from their origin to recovery, observation, or propagation.
+Inspect new fallible operations even when no catch block changed.
 
-## Core Principle
+Check:
 
-Failures should be visible, diagnosable, and proportionate to the user impact. Avoid logic that hides real problems behind silent defaults or vague messaging.
+- Catch blocks that absorb failures outside their intended scope.
+- Defaults or fallbacks that conceal invalid state or lost work.
+- Retry exhaustion without an observable final result.
+- Partial updates without a practical recovery path.
+- Error messages that prevent a caller or operator from taking the required action.
+- Logging that exposes sensitive data or duplicates an already handled error.
 
-## Inspect
+Before requesting another log or message, trace the caller and the existing observation path.
+Check whether the failure belongs at this layer or at a higher boundary.
+Expected cancellation and best-effort cleanup can legitimately remain quiet.
+Establish who needs the result instead of requiring every failure to reach the end user.
 
-- empty or near-empty catch blocks
-- broad catch clauses that swallow unrelated failures
-- fallback behavior that masks the root problem
-- retries that end quietly without clear reporting
-- default values returned on failure without logging or surfacing the error
-- optional access or null coalescing used in a way that suppresses necessary failures
-- user-facing messages that do not explain what happened or what to do next
-
-## Questions
-
-For each error path, ask:
-
-- Is the failure logged or otherwise observable?
-- Does the caller or user get useful feedback?
-- Is the caught error scope tighter than "anything went wrong"?
-- Does fallback behavior preserve trust, or does it conceal the problem?
-- Should this failure propagate higher instead of being absorbed here?
-
-## Severity
-
-- `critical`: silent failure, swallowed exception, or dangerous fallback
-- `high`: weak feedback or broad handling that will make debugging hard
-- `medium`: missing context, vague messaging, or incomplete handling
-
-## Output
-
-For each finding, include:
-
-- location
-- issue
-- likely hidden failures or confusion it can cause
-- recommended fix
-
-Favor actionable recommendations over general lectures.
+Completion: each candidate identifies what failed, what becomes hidden, and who needs the missing result.
