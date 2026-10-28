@@ -38,6 +38,10 @@ Skills for the Humanforce Automation Team
 
 Rules for the Automation Jira board (AUT). Use when filing, triaging, moving, labelling, or closing an AUT ticket, assigning its Impact, or aligning ticket status with deploys.
 
+#### [Automation Board Receptionist](skills/automation-team/automation-board-receptionist/SKILL.md)
+
+Use only when the user explicitly says "call receptionist" or "start receptionist", or asks to run automation-board-receptionist by name.
+
 #### [Git Conventions](skills/automation-team/git-conventions/SKILL.md)
 
 Rules for Git operations: writing commits, naming branches, and writing pull requests.
