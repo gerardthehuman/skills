@@ -64,7 +64,7 @@ Drive one PR through CI and Copilot review until feedback is resolved.
 
 #### [PR Review](skills/engineering/pr-review/SKILL.md)
 
-Review pull requests, branches, commits, or working-tree diffs through parallel lenses: correctness-and-security, code-quality, tests, comments, errors, and types. Use whenever the user asks for a PR review, code review, merge-readiness check, aggressive/deep/thermos review, test-gap analysis, silent-failure review, comment or doc review, type-design feedback, or code-quality feedback on changed code.
+Review pull requests, branches, commits, or working-tree changes. Use for correctness, security, maintainability, test coverage or pruning, error handling, documentation, and type-design reviews.
 
 #### [PR Suggest Changes](skills/engineering/pr-suggest-changes/SKILL.md)
 
