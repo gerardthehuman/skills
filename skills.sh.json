@@ -10,7 +10,13 @@
     {
       "title": "Engineering",
       "description": "Skills for common developer workflows.",
-      "skills": ["pr-apply-changes", "pr-copilot-review", "pr-review", "pr-suggest-changes"]
+      "skills": [
+        "feature-demo",
+        "pr-apply-changes",
+        "pr-copilot-review",
+        "pr-review",
+        "pr-suggest-changes"
+      ]
     },
     {
       "title": "Tools",

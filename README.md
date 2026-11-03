@@ -54,6 +54,10 @@ Worklog conventions for the Automation Team. Use when starting significant work,
 
 Skills for common developer workflows.
 
+#### [Feature Demo](skills/engineering/feature-demo/SKILL.md)
+
+Record and polish a human-like feature or fix demo, standalone or as pull request evidence. Use when asked for a feature walkthrough, screen recording, or before-and-after video of a user-facing change.
+
 #### [PR Apply Changes](skills/engineering/pr-apply-changes/SKILL.md)
 
 Apply changes from the current conversation, an implementation plan, review feedback, issue reports, or PR follow-up work, then integrate them into the right commits. Use when the user asks to apply requested changes, implement an agreed plan, fix issues found in review, address issue feedback, or fold follow-up fixes into a branch or PR.
