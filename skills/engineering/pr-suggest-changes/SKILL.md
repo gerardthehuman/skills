@@ -92,6 +92,8 @@ Please address the remaining issues before merge:
 
 ## Writing Rules
 
+Write for the person who will act on the feedback. Use plain language, short paragraphs, and Markdown links or inline code where useful.
+
 - be concise
 - say what needs to change
 - prefer direct, actionable wording
