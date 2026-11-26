@@ -1,4 +1,22 @@
-# Pull Request Template & Guidelines
+# Pull Requests
+
+## Title
+
+Pull request titles must follow this format:
+
+```text
+<ticket>: <name>
+```
+
+- Omit the optional `<ticket>:` prefix when no ticket exists.
+- Make `<name>` an imperative description of the change, such as
+  `Add Singapore country`.
+- Match the ticket identifier and name to the [branch name](branches.md).
+  Use the applicable ticket conventions for the identifier's format and casing.
+
+Example: `<ticket>: Add minor feature`
+
+## Body Template
 
 Use this template for writing the PR body:
 
@@ -9,8 +27,13 @@ Use this template for writing the PR body:
 
 ## Evidence
 
-- **Before:** <screenshot/output/failing test run>
-  **After:** <screenshot/output/passing test run>
+### Before
+
+<recording, screenshot, or execution output from the PR base>
+
+### After
+
+<matching evidence from the changed version>
 
 ## Merge Danger
 
@@ -23,7 +46,7 @@ Use this template for writing the PR body:
 <optional: potential ramifications of merge>
 ```
 
-## Sections
+## Body Sections
 
 Skip all preambles and keep prose brief. Use the user or project's domain language.
 
@@ -148,13 +171,16 @@ You may use one of these, you may use several, it is unlikely you will use all o
 
 ### Evidence
 
-Concrete evidence that the change works. Show a before and after.
+Recordings and screenshots are S-tier evidence. Put them first in Evidence.
 
-Screenshots are S-tier - when the environment is set up for it and the change is visual.
+- If the PR adds a feature or changes visible behavior, record the affected user journey on the changed version. If the PR base has a comparable journey, record that journey on the base version. Attach the recordings under **Before** and **After**.
+- If a new feature has no meaningful before state, replace **Before** and **After** with **Preview**. Attach a recording that shows the new feature in use.
+- If the change only affects layout, colors, copy, or other static content, attach matching before and after screenshots.
+- If the change has no visible behavior or appearance to capture, use execution evidence. Test results and command output are A-tier evidence. Show the output of the same test or command on both versions when possible.
 
-Execution-based evidence is A-tier. Test results, console output. Show the exact test that now fails and passes, using pseudocode.
+If you cannot capture a required recording or screenshot, state what is missing and why. Include the evidence you can collect.
 
-For a feature recording, place the video in Evidence. For a comparable change, show the same journey before and after.
+After you publish or update the PR, make sure that the body displays each screenshot and plays each recording.
 
 ### Merge Danger
 
