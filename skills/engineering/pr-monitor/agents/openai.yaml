@@ -1,0 +1,6 @@
+interface:
+  display_name: "PR Monitor"
+  short_description: "Watch PR updates and address actionable feedback"
+  default_prompt: "Use $pr-monitor to watch this pull request and address actionable feedback within its scope."
+policy:
+  allow_implicit_invocation: false

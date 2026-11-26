@@ -12,9 +12,9 @@ Record and polish a human-like feature or fix demo, standalone or as pull reques
 
 Apply changes from the current conversation, an implementation plan, review feedback, issue reports, or PR follow-up work, then integrate them into the right commits. Use when the user asks to apply requested changes, implement an agreed plan, fix issues found in review, address issue feedback, or fold follow-up fixes into a branch or PR.
 
-## [PR Feedback Loop](pr-copilot-review/SKILL.md)
+## [PR Monitor](pr-monitor/SKILL.md)
 
-Drive one PR through CI and Copilot review until feedback is resolved.
+Watch a pull request for new commits, reviews, comments, and CI results. Address actionable feedback within the scope of the PR.
 
 ## [PR Review](pr-review/SKILL.md)
 
